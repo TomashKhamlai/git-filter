@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Services;
+namespace Services\Http;
 
 use Services\Http\Interfaces\ResponseInterface;
 

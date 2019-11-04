@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Services\Http\Interfaces;
+namespace Services\Http;
 
-use Services\RequestInterface;
+use Services\Http\Interfaces\RequestInterface;
 
 class Request implements RequestInterface
 {

@@ -3,7 +3,7 @@
 namespace App;
 
 use Services\Http\Request;
-use Services\Http\Response;g
+use Services\Http\Response;
 
 class FrontController
 {
