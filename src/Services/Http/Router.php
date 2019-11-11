@@ -19,11 +19,27 @@ class Router
      */
     private $supportedHttpMethods = ["GET", "POST"];
 
+    private static $routes = [
+        'index' => IndexAction::class,
+        'default' => DefaultAction::class,
+    ];
+
     function __construct(Request $requestHandler, Response $responseHandler)
     {
         $this->requestHandler = $requestHandler;
         $this->responseHandler = $responseHandler;
         $this->calculateRouteParams();
+    }
+
+    public function getActionName()
+    {
+        $uri = $this->requestHandler->getUri();
+
+        if (!in_array($uri, self::$routes)) {
+            return self::$routes['default'];
+        }
+
+        return self::$routes[$uri];
     }
 
     /**

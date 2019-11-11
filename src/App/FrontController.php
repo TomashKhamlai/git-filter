@@ -14,9 +14,9 @@ class FrontController
      * FrontController constructor.
      * @param Router $router
      */
-    public function __construct(Router $router)
+    public function __construct()
     {
-        $this->router = $router;
+        $this->router = new Router(new Request(), new Response());
     }
 
     /**
@@ -38,6 +38,10 @@ class FrontController
     public function run()
     {
         $router = new Router(new Request(), new Response());
+        $actionName = $router->getActionName();
+        $action = new $actionName();
+
+        return $action->dispatch();
     }
 
     /**
