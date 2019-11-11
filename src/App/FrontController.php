@@ -8,15 +8,41 @@ use Services\Http\Router;
 
 class FrontController
 {
+    private static $context;
+
+    public function __construct(Router $router)
+    {
+        $this->router = $router;
+    }
+
+    public static function getContext(Router $router)
+    {
+        if(is_null(self::$context)):
+            self::$context = new FrontController($router);
+        endif;
+
+        return self::$context;
+    }
+
     /**
      * ToDO: Write description
      */
     public function run()
     {
-        $response = '';
+        $router = new Router(new Request(), new Response());
+    }
 
-        $request = new Request();
-        $response = new Response();
-        $router = new Router($request, $response);
+    public function getRouter()
+    {
+        return $this->router;
+    }
+
+    public function setViewDirectory($dir)
+    {
+        if(is_dir($dir)):
+            $this->router->responseHandler->setViewDir(realpath($dir));
+        else:
+            throw new \Exception("{$dir} is not a valid directory.");
+        endif;
     }
 }
