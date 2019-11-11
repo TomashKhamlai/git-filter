@@ -23,12 +23,18 @@ class Request implements RequestInterface
     private $params;
 
     /**
+     * @var string
+     */
+    private $serverProtocol;
+
+    /**
      * Request constructor.
      */
     public function __construct()
     {
         $this->uri = $_SERVER['REQUEST_URI'];
         $this->method = $_SERVER['REQUEST_METHOD'];
+        $this->serverProtocol = $_SERVER['SERVER_PROTOCOL'];
         if ($this->method == 'POST') {
             $this->params = $_POST;
         }
@@ -40,7 +46,7 @@ class Request implements RequestInterface
     /**
      * @inheritDoc
      */
-    public function getMethod()
+    public function getMethod(): string
     {
         return $this->method;
     }
@@ -48,7 +54,7 @@ class Request implements RequestInterface
     /**
      * @inheritDoc
      */
-    public function getUri()
+    public function getUri(): string
     {
         return $this->uri;
     }
@@ -56,9 +62,30 @@ class Request implements RequestInterface
     /**
      * @inheritDoc
      */
-    public function getParams()
+    public function getParams(): array
     {
         return $this->params;
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function getParam(string $key)
+    {
+        if(array_key_exists($key, $this->params))
+        {
+            return filter_input(INPUT_GET, $key, FILTER_SANITIZE_SPECIAL_CHARS);
+        }
+        return false;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getProtocol(): string
+    {
+        return $this->serverProtocol;
     }
 
     /**

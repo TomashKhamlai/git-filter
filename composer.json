@@ -10,7 +10,10 @@
     "minimum-stability": "dev",
     "require": {
         "php": ">=7.2.0",
-        "psr/http-message": "^1.0@dev"
+        "psr/http-message": "^1.0@dev",
+        "psr/cache": "^1.0@dev",
+        "psr/http-client": "^1.0@dev",
+        "ext-mongo": "1.5.5"
     },
     "autoload": {
         "psr-4": {

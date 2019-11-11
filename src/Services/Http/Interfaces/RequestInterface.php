@@ -8,16 +8,16 @@ interface RequestInterface
     /**
      * Getter for method
      *
-     * @return mixed
+     * @return string
      */
-    public function getMethod();
+    public function getMethod(): string;
 
     /**
      * Getter for URI
      *
-     * @return mixed
+     * @return string
      */
-    public function getUri();
+    public function getUri(): string;
 
     /**
      * Getter for params
@@ -26,6 +26,20 @@ interface RequestInterface
      */
     public function getParams();
 
+    /**
+     * Getter for specific parameter
+     *
+     * @param string $key
+     * @return string|null
+     */
+    public function getParam(string $key);
+
+    /**
+     * Getter for the protocol type
+     *
+     * @return string
+     */
+    public function getProtocol(): string;
     /**
      * Getter for the raw data
      */
