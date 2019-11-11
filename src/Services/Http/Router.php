@@ -9,9 +9,6 @@ class Router
     /** @var Request $requestHandler */
     public $requestHandler;
 
-    /** @var Response $responseHandler */
-    public $responseHandler;
-
     private $routePattern;
     private static $matchNotFound = true;
     /**
@@ -24,10 +21,13 @@ class Router
         'default' => DefaultAction::class,
     ];
 
-    function __construct(Request $requestHandler, Response $responseHandler)
+    /**
+     * Router constructor.
+     * @param \Services\Http\Request $requestHandler
+     */
+    function __construct(Request $requestHandler)
     {
         $this->requestHandler = $requestHandler;
-        $this->responseHandler = $responseHandler;
         $this->calculateRouteParams();
     }
 

@@ -10,6 +10,11 @@ class FrontController
 {
     private static $context;
 
+    private static $viewController = [
+        'index' => 'home/index.phtml',
+        'default' => 'errors/default.phtml'
+    ];
+
     /**
      * FrontController constructor.
      * @param Router $router
@@ -37,11 +42,13 @@ class FrontController
      */
     public function run()
     {
-        $router = new Router(new Request(), new Response());
+        $request = new Request();
+        $response = new Response();
+        $router = new Router($request);
         $actionName = $router->getActionName();
-        $action = new $actionName();
+        $action = new $actionName($response);
 
-        return $action->dispatch();
+        return $response;
     }
 
     /**
