@@ -10,11 +10,19 @@ class FrontController
 {
     private static $context;
 
+    /**
+     * FrontController constructor.
+     * @param Router $router
+     */
     public function __construct(Router $router)
     {
         $this->router = $router;
     }
 
+    /**
+     * @param Router $router
+     * @return FrontController
+     */
     public static function getContext(Router $router)
     {
         if(is_null(self::$context)):
@@ -32,11 +40,18 @@ class FrontController
         $router = new Router(new Request(), new Response());
     }
 
+    /**
+     * @return Router
+     */
     public function getRouter()
     {
         return $this->router;
     }
 
+    /**
+     * @param $dir
+     * @throws \Exception
+     */
     public function setViewDirectory($dir)
     {
         if(is_dir($dir)):
