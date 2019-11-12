@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Controller;
 
 use Services\Http\Request;
 use Services\Http\Response;
@@ -8,7 +8,6 @@ use Services\Http\Router;
 
 class FrontController
 {
-    private static $context;
 
     private static $viewController = [
         'index' => 'home/index.phtml',

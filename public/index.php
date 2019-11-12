@@ -1,20 +1,11 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 'On');
+declare(strict_types=1);
 
-
-use App\FrontController;
-
-if (
-    !file_exists(dirname(__DIR__) . '/vendor/autoload.php')
-    ||
-    !is_readable(dirname(__DIR__) . '/vendor/autoload.php')
-) {
-    die("Could not find autoloader. Run 'composer install'.");
+try {
+    require __DIR__ . '/config/bootstrap.php';
+} catch (\Exception $e) {
+    die('Probably you have wrong .htaccess file or problems with permissions');
 }
 
-require_once dirname(__DIR__) . '/vendor/autoload.php';
+require_once DOC_ROOT . "/../vendor/autoload.php";
 
-/** @var FrontController $frontController */
-$frontController = new FrontController();
-$frontController->run();
