@@ -2,7 +2,6 @@
 
 namespace GitFilter\Http;
 
-use GitFilter\Http\Request;
 
 class Router
 {
@@ -14,24 +13,43 @@ class Router
     /**
      * @var string[]
      */
-    private $supportedHttpMethods = ["GET", "POST"];
+    private static $supportedHttpMethods = ["GET", "POST"];
+
+    private static $instance;
 
     private static $routes = [
-        'index' => IndexAction::class,
-        'default' => DefaultAction::class,
+        'index' => Index::class
     ];
+    /**
+     * @var callable
+     */
+    private $callback;
+    /**
+     * @var bool
+     */
+    private $authorize;
+
+    public static function getInstance()
+    {
+        if (!self::$instance) {
+            self::$instance = new Router();
+        }
+
+        return self::$instance;
+    }
 
     /**
      * Router constructor.
      * @param \GitFilter\Http\Request $requestHandler
      */
-    function __construct(Request $requestHandler)
+    private function __construct()
     {
-        $this->requestHandler = $requestHandler;
         $this->calculateRouteParams();
     }
 
-    public function getActionName()
+
+
+    public function getController()
     {
         $uri = $this->requestHandler->getUri();
 
@@ -39,7 +57,20 @@ class Router
             return self::$routes['default'];
         }
 
-        return self::$routes[$uri];
+        $action = self::$routes[$uri];
+        return $action;
+    }
+
+    public function getAction()
+    {
+        $uri = $this->requestHandler->getUri();
+
+        if (!in_array($uri, self::$routes)) {
+            return self::$routes['default'];
+        }
+
+        $action = self::$routes[$uri];
+        return $action;
     }
 
     /**
@@ -54,6 +85,14 @@ class Router
             return '/';
         }
         return $result;
+    }
+
+    /**
+     * @return array
+     */
+    public function getRoutes()
+    {
+        return self::$routes;
     }
 
     private function defaultRequestHandler()
@@ -80,14 +119,10 @@ class Router
 
     public function __call(string $method, array $params)
     {
-        if(in_array($method, $this->supportedHttpMethods))
+        if(in_array($method, self::$supportedHttpMethods))
         {
 
         }
-    }
-
-    public function getAction($request)
-    {
     }
 
     /**
@@ -112,14 +147,10 @@ class Router
 
     private function isRoute($pattern)
     {
-        $raw_route = trim(str_replace("?{$this->requestHandler->getParams()}", "", $this->requestHandler->requestUri), "/");
+        $raw_route = trim(str_replace("?{$this->requestHandler->getParams()}", "", $this->requestHandler->getUri()), "/");
         $this->routePattern = strtolower($pattern);
 
-        if($pattern === $this->route) // direct route
-            return true;
-        else
-            return $this->isIndirectRoute();
-        return false;
+        return false|true;
     }
 
     function __destruct()

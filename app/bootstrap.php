@@ -12,6 +12,6 @@ if (
     die("Could not find autoloader. Run 'composer install'.");
 }
 
-require_once 'Core/App.php';
+require_once 'Core/Application.php';
 
-$app = new GitFilter\Core\App();
+$app = new GitFilter\Core\Application;

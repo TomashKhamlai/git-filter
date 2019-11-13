@@ -2,6 +2,7 @@
 
 namespace GitFilter\Core;
 
+use GitFilter\Http\RequestValidator;
 use GitFilter\Http\Router;
 use GitFilter\Http\Response;
 
@@ -23,7 +24,7 @@ class HttpFrontController implements FrontControllerInterface
         $this->response = $response;
     }
 
-    public function dispatch($request)
+    private function dispatch($request)
     {
         //find router
         $action = $this->router->getAction($request);
@@ -33,10 +34,18 @@ class HttpFrontController implements FrontControllerInterface
         return $result;
     }
 
-    private function process($request)
+    public function validate(array $requestValidators)
     {
         // Validation goes here
         return $action->execute();
-    }
+        }
 
+
+    /**
+     *
+     */
+    public function run(): void
+    {
+        // TODO: Implement run() method.
+    }
 }

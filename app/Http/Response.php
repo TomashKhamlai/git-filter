@@ -89,4 +89,5 @@ class Response implements ResponseInterface
     {
         $this->content = $body;
     }
+
 }
