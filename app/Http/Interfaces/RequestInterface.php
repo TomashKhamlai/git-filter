@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Services\Http\Interfaces;
+namespace GitFilter\Http\Interfaces;
 
 interface RequestInterface
 {

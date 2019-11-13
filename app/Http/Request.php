@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace GitFilter\Http;
 
-use Services\Http\Interfaces\RequestInterface;
+use GitFilter\Http\Interfaces\RequestInterface;
 
 class Request implements RequestInterface
 {

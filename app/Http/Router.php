@@ -3,12 +3,13 @@
 namespace GitFilter\Http;
 
 
+use App\Controller\GraphQlController;
+use App\Controller\WebApiController;
+
 class Router
 {
-    /** @var Request $requestHandler */
-    public $requestHandler;
-
     private $routePattern;
+
     private static $matchNotFound = true;
     /**
      * @var string[]
@@ -18,7 +19,10 @@ class Router
     private static $instance;
 
     private static $routes = [
-        'index' => Index::class
+        'found' => HttpController::class,
+        'api' => WebApiController::class,
+        'graphql' => GraphQlController::class,
+        'default' => ErrorHandler::class,
     ];
     /**
      * @var callable
@@ -29,7 +33,7 @@ class Router
      */
     private $authorize;
 
-    public static function getInstance()
+    public static function getInstance(): Router
     {
         if (!self::$instance) {
             self::$instance = new Router();
@@ -40,18 +44,14 @@ class Router
 
     /**
      * Router constructor.
-     * @param \GitFilter\Http\Request $requestHandler
      */
     private function __construct()
     {
-        $this->calculateRouteParams();
     }
 
-
-
-    public function getController()
+    public function getController(Request $request)
     {
-        $uri = $this->requestHandler->getUri();
+        $uri = $request->getUri();
 
         if (!in_array($uri, self::$routes)) {
             return self::$routes['default'];
@@ -61,9 +61,9 @@ class Router
         return $action;
     }
 
-    public function getAction()
+    public function getAction(Request $request)
     {
-        $uri = $this->requestHandler->getUri();
+        $uri = $request->getUri();
 
         if (!in_array($uri, self::$routes)) {
             return self::$routes['default'];
@@ -102,26 +102,20 @@ class Router
 
     /**
      * Resolves a route
+     * @param Request $request
      */
-    function resolve()
+    function resolve(Request $request)
     {
-        $methodDictionary = $this->{strtolower($this->requestHandler->getMethod())};
-        $formattedRoute = $this->formatRoute($this->requestHandler->getUri());
-        $method = $methodDictionary[$formattedRoute];
-
-        if (is_null($method)) {
-            $this->defaultRequestHandler();
-            return;
-        }
-
-        echo call_user_func_array($method, array($this->requestHandler));
+        $method = strtolower($request->getMethod());
+        $pathInfo = explode('/', strtolower($request->getUri()));
+        echo "method: " . $method . ", path: " . var_dump($pathInfo);
     }
 
     public function __call(string $method, array $params)
     {
         if(in_array($method, self::$supportedHttpMethods))
         {
-
+            echo "Nice";
         }
     }
 
@@ -129,9 +123,8 @@ class Router
      * @param string $requestMethod
      * @param string $pattern
      * @param callable $callback
-     * @param bool $authorize
      */
-    private function route(string $requestMethod, string $pattern, callable $callback, bool $authorize = false)
+    private function route(string $requestMethod, string $pattern, callable $callback)
     {
         if($this->requestHandler->getMethod() !== strtolower($requestMethod)) return;
 
@@ -139,7 +132,6 @@ class Router
             if($this->isRoute(trim($pattern, '/'))){
                 $this->calculateRouteParams();
                 self::$matchNotFound = false;
-                $this->authorize = $authorize;
                 $this->callback = $callback;
             }
         }

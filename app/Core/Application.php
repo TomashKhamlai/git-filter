@@ -15,4 +15,9 @@ class Application {
         $frontController = new FrontController();
         $frontController->run();
     }
+
+    public function sayHello()
+    {
+        echo "Hello!";
+    }
 }

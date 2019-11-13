@@ -50,8 +50,9 @@ class FrontController implements FrontControllerInterface
     {
         $request = new Request();
         $router = Router::getInstance();
-        $controller = $router->getController();
-        $action = $router->getAction();
+        $router->resolve($request);
+        $controller = $router->getController($request);
+        $action = $router->getAction($request);
 
         $this->dispatch($request, $controller);
     }
