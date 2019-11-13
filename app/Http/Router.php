@@ -34,7 +34,11 @@ class Router
     function resolve(Request $request)
     {
         $uri = strtolower($request->getUri());
-        echo mb_strpos($uri, '/public');
+
+        if (mb_strpos($uri, '/public') === 0)
+        {
+            
+        }
 
     }
 }
