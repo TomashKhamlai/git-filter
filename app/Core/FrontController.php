@@ -31,9 +31,9 @@ class FrontController implements FrontControllerInterface
      * @param ControllerInterface $controller
      * @return void|boolean
      */
-    private function dispatch(Request $request, ControllerInterface $controller)
+    private function dispatch(Request $request)
     {
-
+        echo "dispatched";
     }
 
     private function  getDefaultController(): string
@@ -51,9 +51,7 @@ class FrontController implements FrontControllerInterface
         $request = new Request();
         $router = Router::getInstance();
         $router->resolve($request);
-        $controller = $router->getController($request);
-        $action = $router->getAction($request);
 
-        $this->dispatch($request, $controller);
+        $this->dispatch($request);
     }
 }

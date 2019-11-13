@@ -10,7 +10,6 @@ class Application {
      */
     public function __construct()
     {
-        echo __NAMESPACE__;
         /** @var FrontController $frontController */
         $frontController = new FrontController();
         $frontController->run();

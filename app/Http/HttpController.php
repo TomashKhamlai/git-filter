@@ -6,18 +6,15 @@ use GitFilter\Core\ControllerInterface;
 
 class HttpController implements ControllerInterface
 {
-    /**
-     * @var \GitFilter\Http\Router
-     */
-    private $router;
 
-    /**
-     * HttpController constructor.
-     * @param Router $router
-     */
-    public function __construct()
+    private function indexAction()
     {
-        $this->router = Router::getInstance();
+
+    }
+
+    private function notFoundAction()
+    {
+
     }
 
     public function execute()
