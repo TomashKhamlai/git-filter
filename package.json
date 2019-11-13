@@ -1,0 +1,30 @@
+{
+  "name": "git-filter",
+  "version": "1.0.0",
+  "description": "Git Filter",
+  "main": "gulpfile.js",
+  "dependencies": {
+    "yarn": "^1.19.1"
+  },
+  "devDependencies": {
+    "gulp": "^4.0.2"
+  },
+  "scripts": {
+    "test": "gulp test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TomashKhamlai/git-filter.git"
+  },
+  "keywords": [
+    "php",
+    "js",
+    "html"
+  ],
+  "author": "Tomash Khamlai",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TomashKhamlai/git-filter/issues"
+  },
+  "homepage": "https://github.com/TomashKhamlai/git-filter#readme"
+}

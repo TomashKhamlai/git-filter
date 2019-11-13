@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Services\Http;
+namespace GitFilter\Http;
 
-use Services\Http\Interfaces\ResponseInterface;
+use GitFilter\Http\Interfaces\ResponseInterface;
 
 class Response implements ResponseInterface
 {

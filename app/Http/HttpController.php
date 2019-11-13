@@ -1,31 +1,35 @@
 <?php
 
-namespace App\Controller;
+namespace GitFilter\Http;
 
-use Services\Http\Request;
-use Services\Http\Response;
-use Services\Http\Router;
+use GitFilter\Http\Request;
+use GitFilter\Http\Response;
+use GitFilter\Http\Router;
 
-class FrontController
+class HttpController
 {
 
     private static $viewController = [
         'index' => 'home/index.phtml',
         'default' => 'errors/default.phtml'
     ];
+    /**
+     * @var \GitFilter\Http\Router
+     */
+    private $router;
 
     /**
-     * FrontController constructor.
+     * HttpController constructor.
      * @param Router $router
      */
     public function __construct()
     {
-        $this->router = new Router(new Request(), new Response());
+        $this->router = new Router(new Request());
     }
 
     /**
      * @param Router $router
-     * @return FrontController
+     * @return HttpController
      */
     public static function getContext(Router $router)
     {

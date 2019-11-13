@@ -1,8 +1,8 @@
 <?php
 
-namespace Services\Http;
+namespace GitFilter\Http;
 
-use Services\Http\Request;
+use GitFilter\Http\Request;
 
 class Router
 {
@@ -23,7 +23,7 @@ class Router
 
     /**
      * Router constructor.
-     * @param \Services\Http\Request $requestHandler
+     * @param \GitFilter\Http\Request $requestHandler
      */
     function __construct(Request $requestHandler)
     {
@@ -84,6 +84,10 @@ class Router
         {
 
         }
+    }
+
+    public function getAction($request)
+    {
     }
 
     /**

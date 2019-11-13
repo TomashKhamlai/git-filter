@@ -44,4 +44,9 @@ final class GitFilter
     private function __wakeup()
     {
     }
+
+    public function run()
+    {
+
+    }
 }
