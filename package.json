@@ -4,7 +4,7 @@
   "description": "Git Filter",
   "main": "gulpfile.js",
   "dependencies": {
-    "yarn": "^1.19.1"
+    "yarn": "^1.22.0"
   },
   "devDependencies": {
     "gulp": "^4.0.2"
